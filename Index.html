@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <title>Eojji Folder Service</title>
+    <script>
+      function updateButton(folder, button) {
+        button.value = 'Created Folder: ' + folder;
+      }
+    </script>    
+  </head>
+  <body>
+  <h1>Eojji Folder Service</h1>
+  <p>Create Folder 버튼을 클릭하세요. Google Drive에 Eojji folder를 만들고 Eojji 계정과 공유합니다.</p>        
+   <input type="button" value="Create Folder"
+      onclick="google.script.run
+          .withSuccessHandler(updateButton)
+          .withUserObject(this)
+          .eojjiFolder()" />                         
+   <p>위의 버튼을 클릭 후 결과 확인 >> <a href="https://drive.google.com/drive/my-drive" target="_blank">Google Drive</a></p>   
+   <br>
+   <hr />
+   <br>
+   <p>Google Drive에서 폴더나 파일을 선택하여 Eojji folder로 옮기세요.</p> 
+   <p>Eojji folder의 복사본을 만들기 위해서 클릭 >>
+   <a href="http://goo.gl/forms/3uxefZGO4yAX8jqd2" target="_blank">Eojji folder service 신청</a></p>
+   <p>복사본 확인을 위해서 클릭 >>
+   <a href="https://drive.google.com/drive/shared-with-me" target="_blank">공유 문서함</a>
+   <br>Google Drive의 공유 문서함에서 자신의 이메일과 같은 폴더를 찾으세요.
+   <br>이 폴더에서 Eojji folder의 복사본을 찾을 수 있습니다.</p>      
+   <br>
+   <hr />
+   <br>
+   참조: <a href="https://goo.gl/vDnMoZ" target="_blank">Eojji folder service</a>
+   <br>
+   주소: <a href="https://goo.gl/vDnMoZ" target="_blank">https://goo.gl/vDnMoZ</a>   
+  </body>
+</html>
