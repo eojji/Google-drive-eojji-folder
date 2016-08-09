@@ -4,26 +4,68 @@
     <base target="_top">
     <title>Eojji Folder Service</title>
     <script>
+      function onLoad(rtn) {
+        var email = document.getElementById('email');
+        email.value = rtn;
+      }
+      google.script.run.withSuccessHandler(onLoad)   
+          .getEmailProperty();   
+    
+      // Prevent forms from submitting.
+      function preventFormSubmit() {
+        var forms = document.querySelectorAll('form');
+        for (var i = 0; i < forms.length; i++) {
+          forms[i].addEventListener('submit', function(event) {
+            event.preventDefault();
+          });
+        }
+      }
+      window.addEventListener('load', preventFormSubmit);
+
+      function handleFormSubmit(formObject) {
+        google.script.run.withSuccessHandler(updateEmail)
+        .emailForm(formObject);
+      }
+      function updateEmail(rtn) {
+        var div = document.getElementById('managerOutput');
+        div.innerHTML = rtn;
+      }      
       function updateButton(folder, button) {
         button.value = 'Created Folder: ' + folder;
-      }
+      }         
+
+      function copyButton(rtn, button) {
+        button.value = 'Copy Folder: ' + rtn;
+      }                
     </script>    
   </head>
   <body>
   <h1>Eojji Folder Service</h1>
-  <p>Create Folder 버튼을 클릭하세요. Google Drive에 Eojji folder를 만들고 Eojji 계정과 공유합니다.</p>        
-   <input type="button" value="Create Folder"
+    <form id="emailForm" onsubmit="handleFormSubmit(this)">      
+      원하는 Manager Email로 변경하시고 <b>Submit</b> 버튼을 눌러 주세요.<br />
+      Manager Email: <input id="email" name="managerEmail" type="text" />
+      <input type="submit" value="Submit" />
+    </form>    
+    <div id="managerOutput"></div>          
+    <br />
+    <p>Create Folder 버튼을 클릭하세요. <br />Google Drive에 Eojji folder를 만들고 관리자(Manager)와 공유합니다.</p>        
+    <input type="button" value="Create Folder"
       onclick="google.script.run
           .withSuccessHandler(updateButton)
           .withUserObject(this)
           .eojjiFolder()" />                         
-   <p>위의 버튼을 클릭 후 결과 확인 >> <a href="https://drive.google.com/drive/my-drive" target="_blank">Google Drive</a></p>   
+   <p>위의 버튼을 클릭 후 결과 확인 >> <a href="https://drive.google.com/drive/my-drive" target="_blank">Google Drive</a></p>      
+   <a href="https://3.bp.blogspot.com/-sq9diXjqC6s/V5ax-l2ABMI/AAAAAAAAKb0/14Jd2NhCNhAAfl299XB47ixvDzMI5oj5wCKgB/s1600/eojji-folder%2B-%2BGoogle%2Bdrive%2B-%2Bmy%2Bdrive.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="301" src="https://3.bp.blogspot.com/-sq9diXjqC6s/V5ax-l2ABMI/AAAAAAAAKb0/14Jd2NhCNhAAfl299XB47ixvDzMI5oj5wCKgB/s320/eojji-folder%2B-%2BGoogle%2Bdrive%2B-%2Bmy%2Bdrive.png" width="320" /></a>
    <br>
    <hr />
    <br>
-   <p>Google Drive에서 폴더나 파일을 선택하여 Eojji folder로 옮기세요.</p> 
-   <p>Eojji folder의 복사본을 만들기 위해서 클릭 >>
-   <a href="http://goo.gl/forms/3uxefZGO4yAX8jqd2" target="_blank">Eojji folder service 신청</a></p>
+   <p>Google Drive에서 폴더나 파일을 선택하여 Eojji folder로 옮기세요.</p>    
+   <p>Eojji folder의 복사본을 만들기 위해서 아래의 Copy folder 버튼을 클릭하세요.</p>
+   <input type="button" value="Copy Folder"
+      onclick="google.script.run
+          .withSuccessHandler(copyButton)
+          .withUserObject(this)
+          .copyFolderButton()" />                         
    <p>복사본 확인을 위해서 클릭 >>
    <a href="https://drive.google.com/drive/shared-with-me" target="_blank">공유 문서함</a>
    <br>Google Drive의 공유 문서함에서 자신의 이메일과 같은 폴더를 찾으세요.
@@ -31,8 +73,10 @@
    <br>
    <hr />
    <br>
-   참조: <a href="https://goo.gl/vDnMoZ" target="_blank">Eojji folder service</a>
+   어찌 폴더 사이트 주소: <a href="http://www.eojji.com/notice/eojji-folder" target="_blank">http://www.eojji.com/notice/eojji-folder</a>   
    <br>
-   주소: <a href="https://goo.gl/vDnMoZ" target="_blank">https://goo.gl/vDnMoZ</a>   
+   어찌 폴더 설명서 Google 문서: <a href="https://goo.gl/vDnMoZ" target="_blank">https://goo.gl/vDnMoZ</a>
+   <br>
+   어찌 폴더 서비스 단축 URL: <a href="https://goo.gl/qfi2ru" target="_blank">https://goo.gl/qfi2ru</a>
   </body>
 </html>
